@@ -31,5 +31,5 @@ def page(request):
     bedtype = request.GET["bed-type"]
     print(bedtype)
     print(wardenname)
-    return render(request, 'page.html',{'bedtype' : bedtype})
+    return render(request, 'page.html',{'bed-type' : bedtype})
     
