@@ -13,11 +13,23 @@ def student(request):
 
     return render(request,'student.html')
 def wardendashboard(request):
-    return render(request, 'wardendashboard.html')
 
     wardenname = request.GET["wname"]
     empid = request.GET["empId"]
     block = request.GET["block"]
     roomtype = request.GET["room-type"]
     bedtype = request.GET["bed-type"]
+    print(bedtype)
+    print(wardenname)
+    return render(request, 'wardendashboard.html')
+
+def page(request):
+    wardenname = request.GET["wname"]
+    empid = request.GET["empId"]
+    block = request.GET["block"]
+    roomtype = request.GET["room-type"]
+    bedtype = request.GET["bed-type"]
+    print(bedtype)
+    print(wardenname)
+    return render(request, 'page.html',{'bedtype' : bedtype})
     
