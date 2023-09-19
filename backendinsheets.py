@@ -38,6 +38,6 @@ os.system("git add .")
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 os.system("git commit -m 'changed again{dt_string}'")
-os.system("git push origin master")
+os.system("git push origin default")
 
 
