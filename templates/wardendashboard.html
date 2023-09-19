@@ -62,7 +62,6 @@
             border: none;
             cursor: pointer;
             margin-bottom: 2px;
-            
         }
 
         #bed-options {
@@ -72,26 +71,26 @@
     <title>Hostel Room Upgradation</title>
 </head>
 <body>
-    <h1 align="center" style="color:azure">Student Dashboard</h1>
+    <!--<header> -->
+        
+        <h1 align="center" style="color:azure">Warden Dashboard</h1>
+     <!--</header> -->
     <main>
+        
         <section>
-            <h2>Upgradation Form</h2>
+            <h2>Updation Form</h2>
             <form id="reservation-form">
                 <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="wname">Warden Name:</label>
+                    <input type="text" id="wname" name="wname" required>
                 </div>
                 <div class="form-group">
-                    <label for="regNo">Registration Number:</label>
-                    <input type="text" id="regNo" name="regNo" required>
+                    <label for="empId">Employee ID:</label>
+                    <input type="text" id="empId" name="empId" required>
                 </div>
                 <div class="form-group">
-                    <label for="cblock">Current Block:</label>
-                    <input type="text" id="cblock" name="Current Block" required>
-                </div>
-                <div class="form-group">
-                    <label for="rblock">Required Block:</label>
-                    <input type="text" id="rblock" name="Required Block" required>
+                    <label for="block">Warden's Block:</label>
+                    <input type="text" id="block" name="block" required>
                 </div>
                 <div class="form-group">
                     <label for="room-type">Room Type:</label>
@@ -106,13 +105,13 @@
                         <!-- Options will be dynamically added here -->
                     </select>
                 </div>
-                <div class="form-group">
-                    <button type="submit">Submit</button>
-                </div>
             </form>
         </section>
-        <a href="index.html">
+        <a href="hostelportal.html">
         <button type="goBack">Go Back</button></a>
+        <a href="page.html">
+            <button type="button">Vacant Room List</button>
+        </a>
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -151,21 +150,19 @@
                 e.preventDefault();
 
                 // Get form values
-                const name = document.getElementById("name").value;
-                const regNo = document.getElementById("regNo").value;
-                const cblock = document.getElementById("cblock").value;
-                const rblock = document.getElementById("rblock").value;
+                const name = document.getElementById("wname").value;
+                const regNo = document.getElementById("empId").value;
+                const cblock = document.getElementById("block").value;
                 const roomType = document.getElementById("room-type").value;
                 const bedType = document.getElementById("bed-type").value;
 
                 // You can now use these values as needed
                 const details = `
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Registration Number:</strong> ${regNo}</p>
-                    <p><strong>Current Block:</strong> ${cblock}</p>
-                    <p><strong>Required Block:</strong> ${rblock}</p>
-                    <p><strong>Room Type:</strong> ${roomType}</p>
-                    <p><strong>Bed Type:</strong> ${bedType}</p>
+                    <p><strong>Name:</strong> ${wname}</p>
+                    <p><strong>Employee ID:</strong> ${empId}</p>
+                    <p><strong>Warden's Block:</strong> ${block}</p>
+                    <p><strong>Room Type:</strong> ${room-type}</p>
+                    <p><strong>Bed Type:</strong> ${bed-type}</p>
                 `;
 
                 // Display the details (you can modify this part based on your requirements)
