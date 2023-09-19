@@ -1,0 +1,93 @@
+<!-- warden_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Warden Dashboard</title>
+    <style>
+        /* Center-align all elements */
+        body {
+            text-align: center;
+            background-color: aqua;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('burj_khalifa.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Style the form elements */
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Warden Dashboard</h1>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <!-- Add room availability form here -->
+            <form action="update_room_availability.php" method="POST">
+                
+                <label for="room_number">Room Number:</label>
+                <input type="text" id="room_number" name="room_number" required>
+                <label for="availability">Availability:</label>
+                <input type="text" id="availability" name="availability" required>
+                <button type="submit">Update Availability</button>
+            
+            <a href="hostelportal.html">
+                <button type="goBack">Go Back</button></a>
+            
+            </form>
+            
+        </div>
+    </div>
+    <a href="hostelportal.html">
+        <button id="goBack">Go Back</button></a>
+    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Hotel Room Upgradation</p>
+    </footer>
+</body>
+</html>
