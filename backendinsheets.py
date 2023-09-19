@@ -31,13 +31,13 @@ print(df)
 
 
 
-#to convert dataframe to excel file
+#to convert dataframe to csv file
 file_name = "filechanged"
 df.to_csv(file_name)
 os.system("git add .")
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 os.system("git commit -m 'changed again{dt_string}'")
-os.system("git push origin default")
+os.system("git push origin master")
 
 
