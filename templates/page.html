@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #addRowBtn {
+            margin: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Table</h1>
+    <button id="addRowBtn">Add Row</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Block</th>
+                <th>Room No.</th>
+                <th>Room Type</th>
+                <th>Occupancy</th>
+                <th>Residents</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Existing rows will be added here -->
+        </tbody>
+    </table>
+
+    <script>
+        const addRowButton = document.getElementById("addRowBtn");
+        const tableBody = document.getElementById("tableBody");
+
+        addRowButton.addEventListener("click", function () {
+            // Create a new row
+            const newRow = document.createElement("tr");
+
+            // Create and add cells to the new row
+            const blockCell = document.createElement("td");
+            const blockInput = document.createElement("input");
+            blockInput.type = "text";
+            blockCell.appendChild(blockInput);
+
+            const roomNoCell = document.createElement("td");
+            const roomNoInput = document.createElement("input");
+            roomNoInput.type = "text";
+            roomNoCell.appendChild(roomNoInput);
+
+            const roomTypeCell = document.createElement("td");
+            const roomTypeInput = document.createElement("input");
+            roomTypeInput.type = "text";
+            roomTypeCell.appendChild(roomTypeInput);
+
+            const occupancyCell = document.createElement("td");
+            const occupancyInput = document.createElement("input");
+            occupancyInput.type = "text";
+            occupancyCell.appendChild(occupancyInput);
+
+            const residentsCell = document.createElement("td");
+            const residentsInput = document.createElement("input");
+            residentsInput.type = "number";
+            residentsInput.value = 0; // Default value is 0
+            residentsCell.appendChild(residentsInput);
+
+            newRow.appendChild(blockCell);
+            newRow.appendChild(roomNoCell);
+            newRow.appendChild(roomTypeCell);
+            newRow.appendChild(occupancyCell);
+            newRow.appendChild(residentsCell);
+
+            // Append the new row to the table body
+            tableBody.appendChild(newRow);
+        });
+    </script>
+</body>
+</html>
