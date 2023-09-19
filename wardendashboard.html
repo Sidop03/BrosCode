@@ -1,93 +1,167 @@
-<!-- warden_dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Warden Dashboard</title>
     <style>
-        /* Center-align all elements */
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
             text-align: center;
-            background-color: aqua;
+            padding: 1rem;
         }
 
-        .dashboard-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-image: url('burj_khalifa.jpg'); /* Replace with your image path */
-            background-size: cover;
-            background-position: center;
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Style the form elements */
         form {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            text-align: left;
+            display: grid;
+            grid-gap: 1rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: center;
         }
 
         label {
-            display: block;
-            margin-bottom: 10px;
+            font-weight: bold;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
 
         button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
             border: none;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        #bed-options {
+            display: none;
         }
     </style>
+    <title>Hostel Room Upgradation</title>
 </head>
 <body>
     <header>
         <h1>Warden Dashboard</h1>
     </header>
-
     <main>
-        <div class="dashboard-container">
-            <!-- Add room availability form here -->
-            <form action="update_room_availability.php" method="POST">
-                
-                <label for="room_number">Room Number:</label>
-                <input type="text" id="room_number" name="room_number" required>
-                <label for="availability">Availability:</label>
-                <input type="text" id="availability" name="availability" required>
-                <button type="submit">Update Availability</button>
-            
-            <a href="hostelportal.html">
-                <button type="goBack">Go Back</button></a>
-            
+        <section>
+            <h2>Updation Form</h2>
+            <form id="reservation-form">
+                <div class="form-group">
+                    <label for="wname">Warden Name:</label>
+                    <input type="text" id="wname" name="wname" required>
+                </div>
+                <div class="form-group">
+                    <label for="empId">Employee ID:</label>
+                    <input type="text" id="empId" name="empId" required>
+                </div>
+                <div class="form-group">
+                    <label for="block">Warden's Block:</label>
+                    <input type="text" id="block" name="block" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-type">Room Type:</label>
+                    <select id="room-type" name="room-type" required>
+                        <option value="AC">AC</option>
+                        <option value="Non - AC">Non - AC</option>
+                    </select>
+                </div>
+                <div class="form-group" id="bed-options">
+                    <label for="bed-type">Bed Type:</label>
+                    <select id="bed-type" name="bed-type" required>
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
             </form>
-            
-        </div>
-    </div>
-    <a href="hostelportal.html">
-        <button id="goBack">Go Back</button></a>
-    </div>
+        </section>
+        <a href="hostelportal.html">
+        <button type="goBack">Go Back</button></a>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const reservationForm = document.getElementById("reservation-form");
+            const roomTypeSelect = document.getElementById("room-type");
+            const bedOptionsDiv = document.getElementById("bed-options");
+            const bedTypeSelect = document.getElementById("bed-type");
 
-    <footer>
-        <p>&copy; 2023 Hotel Room Upgradation</p>
-    </footer>
+            roomTypeSelect.addEventListener("change", function () {
+                // Get the selected room type
+                const selectedRoomType = roomTypeSelect.value;
+
+                // Clear bed options
+                bedTypeSelect.innerHTML = "";
+
+                if (selectedRoomType === "AC" || selectedRoomType === "Non - AC") {
+                    // Add bed options based on the selected room type
+                    const bedOptions = ["1 beded room", "2 beded room","3 beded room" ,"4 beded room", "6 beded room", "8 beded room"];
+
+                    bedOptions.forEach((option) => {
+                        const optionElement = document.createElement("option");
+                        optionElement.value = option;
+                        optionElement.textContent = option;
+                        bedTypeSelect.appendChild(optionElement);
+                    });
+
+                    // Show the bed options
+                    bedOptionsDiv.style.display = "block";
+                } else {
+                    // Hide the bed options if an invalid room type is selected
+                    bedOptionsDiv.style.display = "none";
+                }
+            });
+
+            reservationForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById("wname").value;
+                const regNo = document.getElementById("empId").value;
+                const cblock = document.getElementById("block").value;
+                const roomType = document.getElementById("room-type").value;
+                const bedType = document.getElementById("bed-type").value;
+
+                // You can now use these values as needed
+                const details = `
+                    <p><strong>Name:</strong> ${wname}</p>
+                    <p><strong>Employee ID:</strong> ${empId}</p>
+                    <p><strong>Warden's Block:</strong> ${block}</p>
+                    <p><strong>Room Type:</strong> ${room-type}</p>
+                    <p><strong>Bed Type:</strong> ${bed-type}</p>
+                `;
+
+                // Display the details (you can modify this part based on your requirements)
+                alert("Reservation Details:\n\n" + details);
+            });
+        });
+    </script>
 </body>
 </html>
