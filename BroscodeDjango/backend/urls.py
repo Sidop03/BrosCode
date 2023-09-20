@@ -3,6 +3,6 @@ from . import views
 urlpatterns = [
     path('',views.home, name='hostelportal'),
     path('csvwarden',views.csvwarden, name='csvwarden'),
-    path("goback", views.goback,name='goback'),
+    path('csvstudent',views.csvstudent, name='csvstudent'),
     path("page",views.page,name='page')
 ]
