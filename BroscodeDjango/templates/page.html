@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #addRowBtn, .deleteRowBtn, #saveChangesBtn {
+            margin: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Table</h1>
+    <button id="addRowBtn">Add Row</button>
+    <button id="saveChangesBtn" style="display: none;">Save Changes</button>
+    <form id="tableForm" action="your_form_action_here">
+        <table>
+            <thead>
+                <tr>
+                    <th>Block</th>
+                    <th>Room No.</th>
+                    <th>Room Type</th>
+                    <th>Occupancy</th>
+                    <th>Residents</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Existing rows will be added here -->
+            </tbody>
+        </table>
+        <!-- Remove the submit button -->
+    </form>
+
+    <script>
+        const addRowButton = document.getElementById("addRowBtn");
+        const tableBody = document.getElementById("tableBody");
+        const saveChangesButton = document.getElementById("saveChangesBtn");
+
+        // Counter for row IDs
+        let rowCount = 0;
+        let isEditing = false;
+
+        addRowButton.addEventListener("click", function () {
+            rowCount++;
+
+            // Create a new row
+            const newRow = document.createElement("tr");
+            newRow.dataset.id = rowCount;
+
+            // Create and add cells to the new row
+            const blockCell = createTableCell("text", "block");
+            const roomNoCell = createTableCell("text", "roomNo");
+            const roomTypeCell = createTableCell("text", "roomType");
+            const occupancyCell = createTableCell("text", "occupancy");
+            const residentsCell = createTableCell("number", "residents");
+
+            // Create a delete button for the row
+            const deleteCell = document.createElement("td");
+            const deleteButton = document.createElement("button");
+            deleteButton.classList.add("deleteRowBtn");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", function () {
+                tableBody.removeChild(newRow);
+            });
+            deleteCell.appendChild(deleteButton);
+
+            newRow.appendChild(blockCell);
+            newRow.appendChild(roomNoCell);
+            newRow.appendChild(roomTypeCell);
+            newRow.appendChild(occupancyCell);
+            newRow.appendChild(residentsCell);
+            newRow.appendChild(deleteCell);
+
+            // Append the new row to the table body
+            tableBody.appendChild(newRow);
+
+            // Highlight the added row
+            newRow.classList.add("highlight");
+
+            // Enable editing mode
+            isEditing = true;
+            enableEditing();
+        });
+
+        saveChangesButton.addEventListener("click", function () {
+            // Collect data from changed rows
+            const changedRowsData = [];
+            const tableRows = tableBody.querySelectorAll("tr");
+            tableRows.forEach((row) => {
+                if (row.classList.contains("highlight")) {
+                    const rowData = {
+                        block: row.querySelector('[data-key="block"]').value,
+                        roomNo: row.querySelector('[data-key="roomNo"]').value,
+                        roomType: row.querySelector('[data-key="roomType"]').value,
+                        occupancy: row.querySelector('[data-key="occupancy"]').value,
+                        residents: row.querySelector('[data-key="residents"]').value,
+                    };
+                    changedRowsData.push(rowData);
+                }
+            });
+
+            // Simulate sending data to the server
+            // In practice, you would send this data to your server via AJAX
+            console.log("Changed Rows Data:", changedRowsData);
+
+            // Disable editing mode and remove highlighting
+            isEditing = false;
+            disableEditing();
+        });
+
+        function createTableCell(inputType, key) {
+            const cell = document.createElement("td");
+            const input = document.createElement("input");
+            input.type = inputType;
+            input.dataset.key = key;
+            cell.appendChild(input);
+            return cell;
+        }
+
+        function enableEditing() {
+            saveChangesButton.style.display = "block";
+            addRowButton.style.display = "none";
+            tableBody.querySelectorAll("input").forEach((input) => {
+                input.removeAttribute("readonly");
+            });
+        }
+
+        function disableEditing() {
+            saveChangesButton.style.display = "none";
+            addRowButton.style.display = "block";
+            tableBody.querySelectorAll("input").forEach((input) => {
+                input.setAttribute("readonly", "true");
+            });
+            tableBody.querySelectorAll(".highlight").forEach((row) => {
+                row.classList.remove("highlight");
+            });
+        }
+    </script>
+</body>
+</html>

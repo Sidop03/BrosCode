@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg'); /* Add your background image URL here */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: grid;
+            grid-gap: 1rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+
+        #bed-options {
+            display: none;
+        }
+    </style>
+    <title>Hostel Room Upgradation</title>
+</head>
+<body>
+    <header>
+        <h1 align="center" style="color:azure">Warden Dashboard</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Updation Form</h2>
+            <form id="reservation-form" action="page">
+                <label for="wname">Warden Name:</label>
+                <input type="text" id="wname" name="wname" required>
+
+                <label for="empId">Employee ID:</label>
+                <input type="text" id="empId" name="empId" required>
+
+                <label for="block">Warden's Block:</label>
+                <input type="text" id="block" name="block" required>
+
+                <label for="room-type">Room Type:</label>
+                <select id="room-type" name="room-type" required>
+                    <option value="none">NONE</option>
+                    <option value="AC">AC</option>
+                    <option value="Non - AC">Non - AC</option>
+                </select>
+
+                <div class="form-group" id="bed-options">
+                    <label for="bed-type">Bed Type:</label>
+                    <select id="bed-type" name="bed-type" required>
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+                
+        <a href="page.html">Vacant Room List</a>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const roomTypeSelect = document.getElementById("room-type");
+            const bedOptionsDiv = document.getElementById("bed-options");
+            const bedTypeSelect = document.getElementById("bed-type");
+
+            roomTypeSelect.addEventListener("change", function () {
+                // Get the selected room type
+                const selectedRoomType = roomTypeSelect.value;
+
+                // Clear bed options
+                bedTypeSelect.innerHTML = "";
+
+                if (selectedRoomType === "AC" || selectedRoomType === "Non - AC") {
+                    // Add bed options based on the selected room type
+                    const bedOptions = ["1 beded room", "2 beded room", "3 beded room", "4 beded room", "6 beded room", "8 beded room"];
+
+                    bedOptions.forEach((option) => {
+                        const optionElement = document.createElement("option");
+                        optionElement.value = option;
+                        optionElement.textContent = option;
+                        bedTypeSelect.appendChild(optionElement);
+                    });
+
+                    // Show the bed options
+                    bedOptionsDiv.style.display = "block";
+                } else {
+                    // Hide the bed options if an invalid room type is selected
+                    bedOptionsDiv.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
